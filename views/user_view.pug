@@ -1,15 +1,19 @@
-h1 Users
+extends ../layout/common.pug
+block content
+  h1(class="mt-5 ml-5") List Users
 
-ol
-  each user in users
-    li= user.name
-      a(href="/users/delete/"+ user.id, , style="margin-left:5px; text-decoration: none; color: blue; ")
-        label(style="cursor: pointer;") Xóa
-      a(href="/users/detail/"+ user.id , style="margin-left:5px; text-decoration: none; color: red; " )
-        label(style="cursor: pointer;") View
-      a(href="/users/update/"+ user.id , style="margin-left:5px; text-decoration: none; color: green; " )
-        label(style="cursor: pointer;") Update
-    
-a(href="/users/add") Thêm mới user
-div
-  a(href="/books") Go back
+  ol(class="mt-5 ")
+    each user, index in users
+      li(class="d-flex w-75", style="  padding:10px 30px;")
+        span(class="mr-auto")=index+1+". "+ user.name
+        span(class="border btn")
+         a(href="/users/delete/"+ user.id, , style=" text-decoration: none; color: blue; ") Xóa
+        span(class="border btn")
+         a(href="/users/detail/"+ user.id , style="margin-left:5px; text-decoration: none; color: red; " ) View
+        span(class="border btn")
+         a(href="/users/update/"+ user.id , style="margin-left:5px; text-decoration: none; color: green; " ) Update
+
+  div(class="ml-5 btn btn-info")
+   a(class="text-white", href="/users/add") Thêm mới user
+  div(class="ml-5 mt-3")
+    a(class="", href="/books") Go back

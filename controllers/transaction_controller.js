@@ -50,7 +50,7 @@ module.exports.postCreateTransaction = (req, res) => {
     .value().id;
   db.get("transaction")
     .push({
-      id: "tr" + dataTran.length + 1,
+      tranId: "tr" + dataTran.length ,
       userId: idUserRecieve,
       bookId: idBookRecieve,
       isComplete: false

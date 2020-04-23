@@ -1,16 +1,19 @@
-h2 Thêm người thuê sách
-form(action="/users/add", method="POST")
-  label Tên 
-  input(type="text", name="name")
-  br
-  label Tuổi
-  input(type="text", name="age")
-  br
-  label Giới tính
-  select(name="GioiTinh")
-    option(value="Nam") Nam
-    option(value="Nữ") Nữ
-      br
-  div
-   button Add
-  
+extends ../layout/common.pug
+block content
+ div(class="container mt-4")
+  h2 Thêm người thuê sách
+  form(class="form-group",action="/users/add", method="POST")
+    label Tên 
+    input(class="form-control w-50",type="text", name="name")
+    br
+    label Tuổi
+    input(class="form-control w-50",type="text", name="age")
+    br
+    label Giới tính
+    select(class="form-control w-50",name="GioiTinh")
+      option(value="Nam") Nam
+      option(value="Nữ") Nữ
+        br
+    div
+     button(class="btn btn-info mt-3") Add
+

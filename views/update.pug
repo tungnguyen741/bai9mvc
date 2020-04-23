@@ -1,21 +1,24 @@
-h2 Update sách
+extends ../layout/common.pug
+block content
+ div(class="container mt-4 ")
+  h2 Update sách
 
-if dataDetail
-ul
- each x in dataDetail
-  li Tên sách:
-   span(style="font-weight: 600; color: #333; margin-left: 5px") #{x.title}
-  li Mô tả:
-   span(style="color: #333; margin-left: 5px") #{x.description}
-  h3 Edit
-  form(action="/books/update/" + x.id, method="POST")
-    label Tên sách 
-    input(type="text", name="titleUpdate")
-    br
-    label Mô tả sách
-    input(type="text", name="descriptionUpdate")
-    br
-    button submit edit
+  if dataDetail
+  ul
+   each x in dataDetail
+    li Tên sách:
+     span(style="font-weight: 600; color: #333; margin-left: 5px") #{x.title}
+    li Mô tả:
+     span(style="color: #333; margin-left: 5px") #{x.description}
+    h3 Edit
+    form(class="form-group",action="/books/update/" + x.id, method="POST")
+      label Tên sách 
+      input(class="form-control w-50",type="text", name="titleUpdate")
+      br
+      label Mô tả sách
+      input(class="form-control w-50", type="text", name="descriptionUpdate")
+      br
+      button(class="btn btn-info") submit edit
 
 
-a(href="/books") Go back home
+    a(href="/books") Go back home
