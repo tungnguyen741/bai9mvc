@@ -1,0 +1,11 @@
+h2 Thêm sách
+form(action="/books/add", method="POST")
+  label Tên sách 
+  input(type="text", name="titleAdded")
+  br
+  label Mô tả sách
+  input(type="text", name="descriptionAdded")
+  br
+  button Add
+
+a(href="/books") Go back home

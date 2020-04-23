@@ -1,0 +1,16 @@
+h2 Thêm người thuê sách
+form(action="/users/add", method="POST")
+  label Tên 
+  input(type="text", name="name")
+  br
+  label Tuổi
+  input(type="text", name="age")
+  br
+  label Giới tính
+  select(name="GioiTinh")
+    option(value="Nam") Nam
+    option(value="Nữ") Nữ
+      br
+  div
+   button Add
+  

@@ -1,0 +1,8 @@
+ul
+ each x in dataDetail
+  li Tên sách:
+   span(style="font-weight: 600; color: #333; margin-left: 5px") #{x.title}
+  li Mô tả:
+   span(style="color: #333; margin-left: 5px") #{x.description}
+   
+a(href="/books") Go back home

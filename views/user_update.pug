@@ -1,0 +1,27 @@
+h2 Update User
+ul
+ each x in dataDetail
+  li Tên :
+   span(style="font-weight: 600; color: #333; margin-left: 5px") #{x.name}
+  li Tuổi:
+   span(style="color: #333; margin-left: 5px") #{x.age}
+  li Giới Tính:
+   span(style="color: #333; margin-left: 5px") #{x.sex}
+
+  h3 Edit
+  form(action="/users/update/" + x.id, method="POST")
+    label Tên 
+    input(type="text", name="name")
+    br
+    label Tuổi 
+    input(type="text", name="age")
+    br
+    label Giới Tính
+    select(name="GioiTinh")
+      option(value="Nam") Nam
+      option(value="Nữ") Nữ
+      br
+    div
+     button submit edit
+
+  
