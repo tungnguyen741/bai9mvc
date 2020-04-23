@@ -1,0 +1,15 @@
+h1 Users
+
+ol
+  each user in users
+    li= user.name
+      a(href="/users/delete/"+ user.id, , style="margin-left:5px; text-decoration: none; color: blue; ")
+        label(style="cursor: pointer;") Xóa
+      a(href="/users/detail/"+ user.id , style="margin-left:5px; text-decoration: none; color: red; " )
+        label(style="cursor: pointer;") View
+      a(href="/users/update/"+ user.id , style="margin-left:5px; text-decoration: none; color: green; " )
+        label(style="cursor: pointer;") Update
+    
+a(href="/users/add") Thêm mới user
+div
+  a(href="/books") Go back
