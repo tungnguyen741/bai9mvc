@@ -1,11 +1,15 @@
-h2 Thêm sách
-form(action="/books/add", method="POST")
-  label Tên sách 
-  input(type="text", name="titleAdded")
-  br
-  label Mô tả sách
-  input(type="text", name="descriptionAdded")
-  br
-  button Add
+extends ../layout/common.pug
+block content
+ div(class="container mt-5")
+  h2 Thêm sách
+  form(action="/books/add", method="POST")
+   div(class="form-group")
+    label Tên sách 
+    input(class="form-control w-50", type="text", name="titleAdded")
+    br
+    label Mô tả sách
+    input(class="form-control w-50", type="text", name="descriptionAdded")
+    br
+    button(class="btn btn-primary") Add
 
-a(href="/books") Go back home
+  a(href="/books") Go back home

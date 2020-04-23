@@ -1,15 +1,18 @@
-h1 Lưu thông tin mượn sách
-form(action="/transaction/create", method="POST")
-  select(name="bookRecieve")
-    each a in dataBook
-     option(value=a.title)= a.title
+extends ../layout/common.pug
+block content
+  div(class="container mt-2")
+    h1 Lưu thông tin mượn sách
+    form(action="/transaction/create", method="POST")
+      select(name="bookRecieve", class="mr-3")
+        each a in dataBook
+         option(value=a.title)= a.title
 
-  select(name="userRecieve")
-    each b in dataUser
-     option(value=b.name)= b.name
-  div
-   button Add
-  
+      select(name="userRecieve")
+        each b in dataUser
+         option(value=b.name)= b.name
+      div(class="mt-5")
+       button(class="btn btn-danger mt-5") Add
 
-div
-  a(href="/transaction") Go back
+
+    div
+      a(href="/transaction") Go back

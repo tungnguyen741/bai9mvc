@@ -1,13 +1,16 @@
-h1 Info User
+extends ../layout/common.pug
+block content
+ div(class="container mt-5") 
+  h1 Info User
 
-ul
- each x in dataDetail
-  li Tên :
-   span(style="font-weight: 600; color: #333; margin-left: 5px") #{x.name}
-  li Tuổi:
-   span(style="color: #333; margin-left: 5px") #{x.age}
-  li Giới Tính:
-   span(style="color: #333; margin-left: 5px") #{x.sex}
+  ul
+   each x in dataDetail
+    li Tên :
+     span(style="font-weight: 600; color: #333; margin-left: 5px") #{x.name}
+    li Tuổi:
+     span(style="color: #333; margin-left: 5px") #{x.age}
+    li Giới Tính:
+     span(style="color: #333; margin-left: 5px") #{x.sex}
 
-div
-  a(href="/users") Go back
+  div
+    a(href="/users") Go back
