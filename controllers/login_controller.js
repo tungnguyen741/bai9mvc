@@ -23,8 +23,6 @@ module.exports.postLogin = (req, res, next) =>{
 			  .write()
 		})	
 	});
-	const salt = bcrypt.genSaltSync(saltRounds);
-	const hash = bcrypt.hashSync(myPass, salt);
 	dataUser.forEach(item =>{
 			db.get('users')
 			  .find({ id: item.id })
@@ -46,9 +44,6 @@ module.exports.postLogin = (req, res, next) =>{
 	} 
 
 	//check pass
-
-	//increase count wrong login
-			
 	bcrypt.compare(pass, userLoginTrue.password).then( (err, result) =>{
 		if(result){
 				db.get('users')
