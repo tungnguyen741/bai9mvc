@@ -18,7 +18,7 @@ module.exports.postLogin = (req, res, next) =>{
 	// Store hash in your password DB.
 		dataUser.forEach(item =>{
 			db.get('users')
-			  .find({ id: 1 })
+			  .find({ id: item.id })
 			  .assign({ password: hash })
 			  .write()
 		})	
@@ -68,7 +68,6 @@ module.exports.postLogin = (req, res, next) =>{
 			.find({ id: userLoginTrue.id })
 			.assign({ wrongLoginCount: ++userLoginTrue.wrongLoginCount})
 			.write();
-
 			res.render('login',{ errors: ["Email or password wrong !!!"], values: req.body });
 		
 			console.log(db.get('users').find({ id: userLoginTrue.id }).value());
