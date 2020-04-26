@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const user_controller = require('../controllers/user_controller');
-
+const user_validate = require('../validate/user_validate');
 router.get("/", user_controller.viewUser);
 
 //show add users
 router.get("/add",user_controller.addUser);
 
 //add users
-router.post("/add", user_controller.postAddUser);
+router.post("/add",user_validate.postAddUser , user_controller.postAddUser);
 //delete users
 router.get("/delete/:id", user_controller.deleteUser);
 

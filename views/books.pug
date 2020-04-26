@@ -1,24 +1,32 @@
 extends ../layout/common.pug
 block content
   nav(class="navbar navbar-light bg-light justify-content-end")
-   h1(class="mr-auto") My books
-   a(href="/books/add", class="mr-1 btn btn-danger") Add new book
-   a(href="/users", class="mr-1 btn btn-primary") View Users
-   a(href="/transaction",  class="  btn btn-warning") View transaction
-
+   div(class="mr-auto") 
+     h1 My books
+     if(viewAction)
+      .d-flex.justify-content-start.align-items-center.mt-3
+       h5= "Hi admin "+ name
+     else
+      .d-flex.justify-content-start.align-items-center.mt-3
+        h5= "Hi " + name
+   if(viewAction)
+    a(href="/books/add", class="mr-1 btn btn-danger") Add new book
+    a(href="/users", class="mr-1 btn btn-primary") View Users
+   a(href="/transaction",  class="mr-1 btn btn-warning") View transaction
+   a(href="/logout", class="btn btn-info") Đăng Xuất
 
   ol(class="mt-5")
     each book, index in books
       li(class="d-flex w-75", style="  padding:10px 30px;")
        span(class="mr-auto")=index+1+". " + book.title
-       span(class="border btn")
-        a(href="/books/delete/"+ book.id, , style="margin-left:5px; text-decoration: none; color: blue; ")
+       if(viewAction)
+        span(class="border btn")
+         a(href="/books/delete/"+ book.id, , style="margin-left:5px; text-decoration: none; color: blue; ")
           label(style="cursor: pointer;") Delete
        span(class="border btn")   
         a(href="/books/detail/"+ book.id , style="margin-left:5px; text-decoration: none; color: red; " )
           label(style="cursor: pointer;") View
-       span(class="border btn")
-        a(href="/books/update/"+ book.id , style="margin-left:5px; text-decoration: none; color: green; " )
-          label(style="cursor: pointer;") Update
-
-  
+       if(viewAction)
+        span(class="border btn")
+         a(href="/books/update/"+ book.id , style="margin-left:5px; text-decoration: none; color: green; " )
+           label(style="cursor: pointer;") Update 

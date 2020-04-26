@@ -1,51 +1,57 @@
 extends ../layout/common.pug
 block content
-  h1 Danh sách các bạn đang mượn sách
+  if(errors)
+   each error in errors
+    .alert.alert-danger= error
+   a(href="/transaction", class="btn btn-danger") Go back
+  else
+    h1 Danh sách các bạn đang mượn sách
 
-   //- tr(style="border: 1px solid black; border-collapse: collapse; padding: 5px; font-weight: 700")
-   //-  td TÊN NGƯỜI MƯỢN
-   //-   each user in usersBorrow
-   //-     tr(style="border: 1px solid black; border-collapse: collapse; padding: 5px;")
-   //-       td= user
-
-
-   //- td(style="border: 1px solid black; border-collapse: collapse; padding: 5px; font-weight: 700")
-   //-  td TÊN SÁCH MƯỢN
-   //-   td 
-   //-     each book in booksBorrow
-   //-      tr(style="border: 1px solid black; border-collapse: collapse; padding: 5px;") 
-   //-       td(style="border: 1px solid black; border-collapse: collapse; padding: 10px;" )= book
+     //- tr(style="border: 1px solid black; border-collapse: collapse; padding: 5px; font-weight: 700")
+     //-  td TÊN NGƯỜI MƯỢN
+     //-   each user in usersBorrow
+     //-     tr(style="border: 1px solid black; border-collapse: collapse; padding: 5px;")
+     //-       td= user
 
 
-  ul(style="display:inline-block; list-style: none") 
-   div(style="font-weight: 700") NGƯỜI MƯỢN
-   each user in usersBorrow
-     li(style="border: 1px solid black; padding:10px 30px;")
-      span= user      
-  ul(style="display:inline-block; list-style: none; padding-left: 0") 
-   div(style="font-weight: 700") SÁCH MƯỢN
-   each book in booksBorrow
-     li(style="border: 1px solid black; padding:10px 30px ;")
-      span= book 
+     //- td(style="border: 1px solid black; border-collapse: collapse; padding: 5px; font-weight: 700")
+     //-  td TÊN SÁCH MƯỢN
+     //-   td 
+     //-     each book in booksBorrow
+     //-      tr(style="border: 1px solid black; border-collapse: collapse; padding: 5px;") 
+     //-       td(style="border: 1px solid black; border-collapse: collapse; padding: 10px;" )= book
 
-  ul(style="display:inline-block; list-style: none; padding-left: 0") 
-   div(style="font-weight: 700") FINISH
-    each num in amountBook
-     li(style="border: 1px solid black; padding:10px 30px ;")
-      span
-       a(href="/transaction/"+ num +"/complete" ) Hoàn thành
 
-  ul(style="display:inline-block; list-style: none; padding-left: 0") 
-   div(style="font-weight: 700") TRẠNG THÁI
-    each status in statusBook
-     li(style="border: 1px solid black; padding: 10px 30px; ")
-       if(status)
-        span Đã trả👌
-       else
-        span Chưa trả 👀
-  div(class="ml-5")
-    div(class="btn btn-info  mb-3")
-      a(class="text-white", href="/transaction/create") Lưu thêm người mượn
+    ul(style="display:inline-block; list-style: none") 
+     div(style="font-weight: 700") NGƯỜI MƯỢN
+     each user in usersBorrow
+       li(style="border: 1px solid black; padding:10px 30px;")
+        span= user      
+    ul(style="display:inline-block; list-style: none; padding-left: 0") 
+     div(style="font-weight: 700") SÁCH MƯỢN
+     each book in booksBorrow
+       li(style="border: 1px solid black; padding:10px 30px ;")
+        span= book 
+    if(amountBook)
+      ul(style="display:inline-block; list-style: none; padding-left: 0") 
+       div(style="font-weight: 700") FINISH
+        each num in amountBook
+         li(style="border: 1px solid black; padding:10px 30px ;")
+          span
+           a(href="/transaction/"+ num +"/complete" ) Hoàn thành
+
+    ul(style="display:inline-block; list-style: none; padding-left: 0") 
+     div(style="font-weight: 700") TRẠNG THÁI
+      each status in statusBook
+       li(style="border: 1px solid black; padding: 10px 30px; ")
+         if(status)
+          span Đã trả👌
+         else
+          span Chưa trả 👀
+    if(saveMore)
+      div(class="ml-5")
+        div(class="btn btn-info  mb-3")
+          a(class="text-white", href="/transaction/create") Lưu thêm người mượn
     div
       a(href="/books") Go back
 

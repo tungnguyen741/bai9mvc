@@ -32,8 +32,8 @@
     },
     {
       "id": 7,
-      "title": "songoku",
-      "description": "sach hay lam"
+      "title": "dragon ball",
+      "description": "truyện kể về cuộc phiêu lưu của nhân vật  có tên là songoku, có ý chí và nghị lực. Với đam mê ham học học. Cuộc phiêu lưu chẳng có gì vui khi đi cùng là những người bạn như Krill, vegeta, ..."
     }
   ],
   "users": [
@@ -41,98 +41,114 @@
       "id": 1,
       "name": "Tung Nguyen",
       "age": 22,
-      "sex": "Nam"
+      "sex": "Nam",
+      "password": "$2b$10$TRaREjbxNv8oeA0JNW64wOJVaPVMJqqKfxsVSxv3B9imYQyw.kRzK",
+      "email": "tungnguyen@codersx.com",
+      "isAdmin": true,
+      "wrongLoginCount": 4
     },
     {
       "id": 2,
       "name": "Phuong Pham",
       "age": 25,
-      "sex": "Nữ"
+      "sex": "Nữ",
+      "password": "$2b$10$TRaREjbxNv8oeA0JNW64wOJVaPVMJqqKfxsVSxv3B9imYQyw.kRzK",
+      "email": "phuongpham@codersx.com",
+      "isAdmin": false,
+      "wrongLoginCount": 0
     },
     {
       "id": 3,
       "name": "Tam Nguyen",
       "age": 23,
-      "sex": "Nam"
+      "sex": "Nam",
+      "password": "$2b$10$TRaREjbxNv8oeA0JNW64wOJVaPVMJqqKfxsVSxv3B9imYQyw.kRzK",
+      "email": "tamnguyen@codersx.com",
+      "isAdmin": false,
+      "wrongLoginCount": 0
     },
     {
       "id": 4,
       "name": "Hoa Pham",
       "age": "22",
-      "sex": "Nữ"
+      "sex": "Nữ",
+      "password": "$2b$10$TRaREjbxNv8oeA0JNW64wOJVaPVMJqqKfxsVSxv3B9imYQyw.kRzK",
+      "email": "hoapham@codersx.com",
+      "isAdmin": false,
+      "wrongLoginCount": 0
     }
   ],
   "transaction": [
     {
       "tranId": "tr0",
-      "userId": 1,
-      "bookId": 3,
+      "userId": 2,
+      "bookId": 1,
       "isComplete": true
     },
     {
       "tranId": "tr1",
       "userId": 3,
       "bookId": 2,
-      "isComplete": true
+      "isComplete": false
     },
     {
       "tranId": "tr2",
-      "userId": 2,
-      "bookId": 5,
-      "isComplete": true
-    },
-    {
-      "tranId": "tr3",
       "userId": 4,
-      "bookId": 7,
-      "isComplete": false
-    },
-    {
-      "tranId": "tr4",
-      "userId": 3,
-      "bookId": 4,
-      "isComplete": false
-    },
-    {
-      "tranId": "tr5",
-      "userId": 1,
-      "bookId": 7,
-      "isComplete": false
-    },
-    {
-      "tranId": "tr6",
-      "userId": 3,
-      "bookId": 4,
-      "isComplete": false
-    },
-    {
-      "tranId": "tr7",
-      "userId": 1,
       "bookId": 3,
       "isComplete": false
     },
     {
+      "tranId": "tr3",
+      "userId": 2,
+      "bookId": 4,
+      "isComplete": true
+    },
+    {
+      "tranId": "tr4",
+      "userId": 3,
+      "bookId": 5,
+      "isComplete": false
+    },
+    {
+      "tranId": "tr5",
+      "userId": 4,
+      "bookId": 6,
+      "isComplete": false
+    },
+    {
+      "tranId": "tr6",
+      "userId": 2,
+      "bookId": 6,
+      "isComplete": false
+    },
+    {
+      "tranId": "tr7",
+      "userId": 3,
+      "bookId": 2,
+      "isComplete": false
+    },
+    {
       "tranId": "tr8",
-      "userId": 1,
-      "bookId": 1,
+      "userId": 4,
+      "bookId": 3,
       "isComplete": false
     },
     {
       "tranId": "tr9",
-      "userId": 1,
-      "bookId": 4,
+      "userId": 2,
+      "bookId": 5,
       "isComplete": false
     },
     {
       "tranId": "tr10",
-      "userId": 1,
-      "bookId": 6,
+      "userId": 2,
+      "bookId": 2,
       "isComplete": true
     },
     {
       "tranId": "tr11",
-      "userId": 1,
-      "bookId": 4,
+      "userId": 2,
+      "bookId": 6,
       "isComplete": false
     }
   ]

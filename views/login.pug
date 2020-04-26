@@ -1,0 +1,21 @@
+extends ../layout/common.pug
+block content
+ //- if(errors)
+ //-  each error in errors
+ //-    .alert.alert-danger= error
+ //-  a(href="/users/add", class="btn btn-danger") Go back
+ div(class="container mt-4")
+  h1 Đăng nhập
+  form(class="form-group",action="/login", method="POST")
+    label Email
+    input(class="form-control w-50",type="text", name="email", value=values?values.email:"")
+    br
+    label Password
+    input(class="form-control w-50",type="password", name="pass",  value=values?values.pass:"")
+    if(errors)
+     each error in errors
+      .alert.alert-danger.w-50= error
+    br
+    div
+     button(class="btn btn-info mt-3") Login
+
