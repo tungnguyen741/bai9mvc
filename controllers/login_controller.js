@@ -23,13 +23,6 @@ module.exports.postLogin = (req, res, next) =>{
 			  .write()
 		})	
 	});
-	dataUser.forEach(item =>{
-			db.get('users')
-			  .find({ id: item.id })
-			  .assign({ password: hash })
-			  .write()
-		})	
-
 	var email = req.body.email;
 	var pass = req.body.pass;
 	var userLoginTrue = db.get("users").find({ email: email }).value();
@@ -46,7 +39,7 @@ module.exports.postLogin = (req, res, next) =>{
 	//check pass
 	bcrypt.compare(pass, userLoginTrue.password).then( (err, result) =>{
 		if(result){
-				db.get('users')
+			db.get('users')
 			  .find({ id: userLoginTrue.id })
 			  .assign({ wrongLoginCount: 0})
 			  .write();

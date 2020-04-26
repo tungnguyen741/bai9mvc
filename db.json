@@ -42,17 +42,17 @@
       "name": "Tung Nguyen",
       "age": 22,
       "sex": "Nam",
-      "password": "$2b$10$5So92hGb9.qFIQ9eeePWg.7XLSz8S0l6hWrYkzBL/gxbWzzwqwNau",
+      "password": "$2b$10$FTnwFVFpQM1vcQOwx85wZOiWWV68uQZMAUY/JH8VzkyLS5.e.cOLG",
       "email": "tungnguyen@codersx.com",
       "isAdmin": true,
-      "wrongLoginCount": 1
+      "wrongLoginCount": 4
     },
     {
       "id": 2,
       "name": "Phuong Pham",
       "age": 25,
       "sex": "Nữ",
-      "password": "$2b$10$5So92hGb9.qFIQ9eeePWg.7XLSz8S0l6hWrYkzBL/gxbWzzwqwNau",
+      "password": "$2b$10$FTnwFVFpQM1vcQOwx85wZOiWWV68uQZMAUY/JH8VzkyLS5.e.cOLG",
       "email": "phuongpham@codersx.com",
       "isAdmin": false,
       "wrongLoginCount": 0
@@ -62,7 +62,7 @@
       "name": "Tam Nguyen",
       "age": 23,
       "sex": "Nam",
-      "password": "$2b$10$5So92hGb9.qFIQ9eeePWg.7XLSz8S0l6hWrYkzBL/gxbWzzwqwNau",
+      "password": "$2b$10$FTnwFVFpQM1vcQOwx85wZOiWWV68uQZMAUY/JH8VzkyLS5.e.cOLG",
       "email": "tamnguyen@codersx.com",
       "isAdmin": false,
       "wrongLoginCount": 0
@@ -72,7 +72,7 @@
       "name": "Hoa Pham",
       "age": "22",
       "sex": "Nữ",
-      "password": "$2b$10$5So92hGb9.qFIQ9eeePWg.7XLSz8S0l6hWrYkzBL/gxbWzzwqwNau",
+      "password": "$2b$10$FTnwFVFpQM1vcQOwx85wZOiWWV68uQZMAUY/JH8VzkyLS5.e.cOLG",
       "email": "hoapham@codersx.com",
       "isAdmin": false,
       "wrongLoginCount": 0
