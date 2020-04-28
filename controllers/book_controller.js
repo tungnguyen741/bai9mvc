@@ -2,12 +2,26 @@ const db = require("../db");
 var data = db.get("data").value();
 
 module.exports.showBook = (req, res) => {
-  var isUserAd = db.get("users").find({ id: parseInt(req.cookies.userId) }).value();
-
+  var isUserAd = db.get("users").find({ id: parseInt(req.signedCookies.userId) }).value();
+  var page = parseInt(req.query.page) || 1; //so trang
+  var items = 8; // 8 item
+  var start = (page-1)*items;
+  var end = page*items;
+  var endPage = Math.floor(data.length / items+1);
   if(isUserAd.isAdmin){
-    res.render("books", { books: data,  viewAction: true, name: isUserAd.name });
+    res.render("books", { books: data.slice(start, end),
+      viewAction: true,
+      user: isUserAd,
+      page: page,
+      endPage: endPage,
+      });
   }
-  res.render("books",{ books: data, viewAction: false, name: isUserAd.name });
+  res.render("books",{ books: data.slice(start, end),
+      viewAction: false,
+      user: isUserAd,
+      page: page,
+      endPage,
+     });
   
 };
 

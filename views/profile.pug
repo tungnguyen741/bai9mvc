@@ -1,0 +1,39 @@
+extends ../layout/common.pug
+block content
+ div(class="container mt-4")
+  h1.text-danger Info User
+
+ 
+  h4
+    each x in dataDetail 
+      .mt-2.mb-2
+       img.avatar(src= "../../"+x.avatarUrl) 
+      p="Tên:  "+ x.name
+      p="Tuổi:  "+ x.age
+      p="Giới Tính:  "+ x.sex
+  hr
+
+  h2.text-danger Update User
+  each x in dataDetail  
+   form(class="form-group",action="/profile" , method="POST", enctype="multipart/form-data")
+          label Tên 
+          input(class="form-control w-50",type="text", name="name")
+          br
+          label Tuổi 
+          input(class="form-control w-50",type="text", name="age")
+          br
+          label Mật khẩu 
+          input(class="form-control w-50",type="password", name="password")
+          br
+          label Giới Tính
+          select(class="form-control w-25",name="GioiTinh")
+            option(value="Nam") Nam
+            option(value="Nữ") Nữ
+            br
+          label avatar
+          input(class="form-control-file w-50",type="file", name="avatar")
+          br
+          div
+          button(class="btn btn-danger mt-3") submit edit
+       
+

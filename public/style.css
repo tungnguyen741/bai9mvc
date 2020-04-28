@@ -1,6 +1,42 @@
+.avatar {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    border: 5px solid #ccc;
+}
+p.card-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 200px;
+    text-align: justify;
+}
+.card-body {
+    height: 400px;
+}
+.button.position-absolute {
+    bottom: 7%
+}
+button.btn-num {
+    color: #111;
+    border: 0;
+    padding: 10px 20px;
+    margin-right: 3px;
+    background: #fff;
+    font-weight: 500;
+}
+button.btn-num.btn-active {
+    background: #dc3545;
+    color: #fff;
+}
+.user_avatar img, 
+.navbar.navbar-light.bg-light img,
+.user_avatar li img{
+    width:  75px;
+    height:  75px;
+    border-radius: 50%;
+    border: 3px solid #eee;
+}
 .avatar{
-	border-radius: 50%;
-	height: 100px;
-	width: 100px;
-	border: 5px solid #ccc;
+    width: 150px;
+    height: 150px;
 }

@@ -10,7 +10,7 @@ module.exports.indexTransaction = (req, res) => {
     var statusBook = [];
 
     var isUserAd = db.get("users").find({
-        id: parseInt(req.cookies.userId)
+        id: parseInt(req.signedCookies.userId)
     }).value();
     if (isUserAd.isAdmin) {
         dataTran.forEach(item => {
@@ -32,7 +32,7 @@ module.exports.indexTransaction = (req, res) => {
         });
     };
 
-    var cookId = req.cookies.userId;
+    var cookId = req.signedCookies.userId;
     var isUserOfCook = dataTran.filter(item=>{
         return item.userId == parseInt(cookId);
     });

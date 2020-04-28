@@ -5,28 +5,45 @@ block content
      h1 My books
      if(viewAction)
       .d-flex.justify-content-start.align-items-center.mt-3
-       h5= "Hi admin "+ name
+       img(src= user.avatarUrl)
+       h5= "Hi admin "+ user.name
      else
       .d-flex.justify-content-start.align-items-center.mt-3
-        h5= "Hi " + name
+        img(src= user.avatarUrl)
+        h5= "Hi " + user.name
    if(viewAction)
     a(href="/books/add", class="mr-1 btn btn-danger") Add new book
     a(href="/users", class="mr-1 btn btn-primary") View Users
+   if(!viewAction)
+    a(href="/profile", class="mr-1 btn btn-primary") Update info
    a(href="/transaction",  class="mr-1 btn btn-warning") View transaction
    a(href="/logout", class="btn btn-info") Đăng Xuất
 
-  ol(class="mt-5")
-    each book, index in books
-      li(class="d-flex w-75", style="  padding:10px 30px;")
-       span(class="mr-auto")=index+1+". " + book.title
-       if(viewAction)
-        span(class="border btn")
-         a(href="/books/delete/"+ book.id, , style="margin-left:5px; text-decoration: none; color: blue; ")
-          label(style="cursor: pointer;") Delete
-       span(class="border btn")   
-        a(href="/books/detail/"+ book.id , style="margin-left:5px; text-decoration: none; color: red; " )
-          label(style="cursor: pointer;") View
-       if(viewAction)
-        span(class="border btn")
-         a(href="/books/update/"+ book.id , style="margin-left:5px; text-decoration: none; color: green; " )
-           label(style="cursor: pointer;") Update 
+
+ 
+  .container.mt-5.pt-5
+    .row
+      each book, index in books
+        .col-3.item
+         .card.mb-3
+          img(src= book.image, class="card-img-top")
+          div(class="card-body position-relative")  
+            h5(class="card-title")= book.title
+            p(class="card-text")= book.description
+            .button.position-absolute
+              a(class="btn btn-primary btn-view", href="/books/detail/"+ book.id) View
+              if(viewAction)
+               a(class="btn btn-danger ml-1 btn-delete", href="/books/delete/"+ book.id) Delete
+               a(class="btn btn-warning ml-1 btn-update", href="/books/update/"+ book.id) Update
+
+    .pagination.mb-5.mt-5.d-flex.justify-content-center
+      form(action="/", method="GET")
+       button(name="page",class="btn-num", value= 1, hidden="true"?page-1==0:'false' ) <<
+       button(name="page",class="btn-num", value= page-1, hidden="true"?page-1==0:'false' ) <
+       button(name="page",class="btn-num", value= page-1, hidden="true"?page-1==0:'false')= page-1
+       button(name="page",class="btn-num", value= page, class="btn-active" )= page
+       button(name="page",class="btn-num", value= page+1, hidden="true"?page+1>=endPage:'false')= page+1
+       button(name="page",class="btn-num", value= page+2, hidden="true"?page+2>=endPage:'false')= page+2
+       button(name="page",class="btn-num", value= page+1, hidden="true"?page+1>=endPage:'false' ) >
+       button(name="page",class="btn-num", value= endPage-1, hidden="true"?page+1>=endPage:'false') >>
+       

@@ -1,66 +1,61 @@
-var db = require("../db");
+const db = require("../db");
 
-var bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt')
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY.trim());
 
 module.exports.login = (req, res, next) =>{
 	res.render('login');
 }
 
 module.exports.postLogin = (req, res, next) =>{
+	let email = req.body.email;
+	let pass = req.body.pass;
+	const msg = {
+	  from: 'tung.nguyen21098@gmail.com',
+	  to: req.body.email,
+	  subject: 'Cảnh báo bạn đăng nhập',
+	  html: '<strong>Bạn đã nhập sai mật khẩu quá 3 lần, Vui lòng liên hệ Admin <b><i>tung.nguyen21098@gmail</b></i> để được hỗ trợ!!</strong>',
+	};
 
-	const saltRounds = 10;
-	const myPass = '123123';
-	var dataUser = db.get('users').value();
-	
-	//bam pass
 
-	bcrypt.hash(myPass, saltRounds).then(function(hash) {
-	// Store hash in your password DB.
-		dataUser.forEach(item =>{
-			db.get('users')
-			  .find({ id: item.id })
-			  .assign({ password: hash })
-			  .write()
-		})	
-	});
-	var email = req.body.email;
-	var pass = req.body.pass;
-	var userLoginTrue = db.get("users").find({ email: email }).value();
+	let userLoginTrue = db.get("users").find({ email: email }).value();
+	console.log(userLoginTrue);
  	if(! userLoginTrue){
-		res.render('login',{ errors: ["Email11 or password wrong !!!"], values: req.body });
+		res.render('login',{ errors: ["Email. or password wrong !!!"], values: req.body });
 		return;
-		
 	}
-	if(userLoginTrue.wrongLoginCount > 3){
+
+	if(userLoginTrue.wrongLoginCount >= 3){
+		sgMail.send(msg);
 		res.render('login',{ errors: ["You have entered it incorrectly many times please contact the admin"], values: req.body });
 		return;
 	} 
 
 	//check pass
-	bcrypt.compare(pass, userLoginTrue.password).then( (err, result) =>{
+	bcrypt.compare(pass, userLoginTrue.password, function(err, result) {
 		if(result){
 			db.get('users')
 			  .find({ id: userLoginTrue.id })
 			  .assign({ wrongLoginCount: 0})
 			  .write();
-			res.cookie("userId", userLoginTrue.id);
-			res.locals.id = userLoginTrue.id;
-			res.locals.name = userLoginTrue.name;
-			console.log('login locals: ', res.locals);
-		    console.log('login cookies: ', req.cookies);
+			res.cookie("userId", userLoginTrue.id, {signed: true});
 			res.redirect('/books');
 		}
-		else{
-			//increase count wrong login
+		if(!result){
 			db.get('users')
 			.find({ id: userLoginTrue.id })
 			.assign({ wrongLoginCount: ++userLoginTrue.wrongLoginCount})
 			.write();
-			res.render('login',{ errors: ["Email or password wrong !!!"], values: req.body });
-		
-			console.log(db.get('users').find({ id: userLoginTrue.id }).value());
-		}
-	})
 
+		  if(userLoginTrue.wrongLoginCount === 2){
+		      res.render('login',{ errors: ["You have entered it incorrectly 2 times, if 3 times email will block !!!"], values: req.body });
+		      return;
+			}
+		  res.render('login',{ errors: ["Email or password wrong123 !!!"], values: req.body }); 
+		}
+
+		
+	});
  	
 }

@@ -1,6 +1,6 @@
   const db = require("../db");
   var data = db.get("data").value();
-
+  var bcrypt = require('bcrypt')
   var dataUser = db.get("users").value();
 
   module.exports.viewUser = (req, res) => {
@@ -12,9 +12,23 @@
   };
 
   module.exports.postAddUser = (req, res) => {
-    db.get("users")
-      .push({ id: dataUser.length + 1, name: res.locals.name, age: res.locals.age, sex: res.locals.gioiTinh })
-      .write();
+    const saltRounds = 10;
+    //bam pass
+    console.log(res.locals);
+    bcrypt.hash(res.locals.password, saltRounds).then((hash) =>{
+    // Store hash in your password DB.
+       db.get("users")
+        .push({ id: dataUser.length + 1,
+        name: res.locals.name,
+        age: res.locals.age,
+        sex: res.locals.gioiTinh,
+        email: res.locals.email,
+        isAdmin: false,
+        password: hash,
+        wrongLoginCount: 0,
+        avatar: res.locals.avatar }).write();
+    });
+
     res.redirect("/users");
   };
 
@@ -53,9 +67,21 @@
     let name = req.body.name;
     let age = req.body.age;
     let gioiTinh = req.body.GioiTinh;
-    db.get("users")
-      .find({ id: id })
-      .assign({ name: name, age: age, sex: gioiTinh })
-      .write();
-    res.redirect("/users");
+    let password = req.body.password;
+    req.body.avatar = req.file.path.split("\\").slice(1).join('/');
+    let avatar = req.body.avatar;
+    const saltRounds = 10;
+     bcrypt.hash( password, saltRounds).then((hash) =>{
+      db.get("users")
+        .find({ id: id })
+        .assign({ name: name,
+         age: age,
+         sex: gioiTinh,
+         password: hash,
+         avatarUrl: avatar })
+        .write();
+     });
+    
+    res.clearCookie("userId");
+    res.redirect("/login");
   };

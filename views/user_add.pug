@@ -7,18 +7,27 @@ block content
  else
    div(class="container mt-4")
     h2 Thêm người thuê sách
-    form(class="form-group",action="/users/add", method="POST")
+    form(class="form-group",action="/users/add", method="POST", enctype="multipart/form-data")
       label Tên 
       input(class="form-control w-50",type="text", name="name")
       br
       label Tuổi
       input(class="form-control w-50",type="text", name="age")
       br
+      label email
+      input(class="form-control w-50",type="text", name="email")
+      br
+      label password
+      input(class="form-control w-50",type="password", name="password")
+      br
       label Giới tính
       select(class="form-control w-50",name="GioiTinh")
         option(value="Nam") Nam
         option(value="Nữ") Nữ
           br
+      label avatar
+      input(class="form-control-file w-50",type="file", name="avatar")
+      br
       div
        button(class="btn btn-info mt-3") Add
 
