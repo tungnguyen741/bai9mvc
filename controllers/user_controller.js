@@ -12,9 +12,19 @@
   };
 
   module.exports.postAddUser = (req, res) => {
+    var cloudinary = require('cloudinary');
+      cloudinary.config({ 
+      cloud_name: process.env.CloudName, 
+      api_key: process.env.APIkeyUp, 
+      api_secret: process.env.APIsecretUp 
+    });
     const saltRounds = 10;
-    //bam pass
-    console.log(res.locals);
+     cloudinary.v2.uploader.upload("./public/"+res.locals.avatar)
+   .then((result, err)=>{
+      console.log(result);
+   })
+
+   .then(()=>{
     bcrypt.hash(res.locals.password, saltRounds).then((hash) =>{
     // Store hash in your password DB.
        db.get("users")
@@ -26,10 +36,10 @@
         isAdmin: false,
         password: hash,
         wrongLoginCount: 0,
-        avatar: res.locals.avatar }).write();
-    });
-
-    res.redirect("/users");
+        avatarUrl: res.locals.avatar }).write();
+      })
+   }).then(res.redirect("/users"));
+    
   };
 
   module.exports.deleteUser = (req, res) => {
@@ -64,24 +74,46 @@
 
   module.exports.postUpdateUser = (req, res) => {
     let id = parseInt(req.params.id);
+    var cloudinary = require('cloudinary');
+  cloudinary.config({ 
+    cloud_name: process.env.CloudName, 
+    api_key: process.env.APIkeyUp, 
+    api_secret: process.env.APIsecretUp 
+  });
+
+   
     let name = req.body.name;
     let age = req.body.age;
     let gioiTinh = req.body.GioiTinh;
     let password = req.body.password;
-    req.body.avatar = req.file.path.split("\\").slice(1).join('/');
-    let avatar = req.body.avatar;
-    const saltRounds = 10;
-     bcrypt.hash( password, saltRounds).then((hash) =>{
-      db.get("users")
-        .find({ id: id })
-        .assign({ name: name,
-         age: age,
-         sex: gioiTinh,
-         password: hash,
-         avatarUrl: avatar })
-        .write();
-     });
+    if(!req.file){
+      req.body.avatar = "/uploads/c52cc23d5fccc451b1c3c9d74b53b568";  
+    }
+    if(req.file){
+      req.body.avatar = req.file.path.split("\\").slice(1).join('/'); 
+    }
     
-    res.clearCookie("userId");
-    res.redirect("/login");
+  let avatar = req.body.avatar;
+   
+    const saltRounds = 10;
+
+   cloudinary.v2.uploader.upload("./public/"+avatar)
+   .then((result, err)=>{
+      console.log(result);
+   })
+
+   .then(()=>{
+      bcrypt.hash( password, saltRounds).then((hash) =>{
+          db.get("users")
+            .find({ id })
+            .assign({ name,
+             age,
+             sex: gioiTinh,
+             password: hash,
+             avatarUrl: avatar  })
+            .write();
+      })
+   })
+   .then(res.redirect('/'));
+
   };

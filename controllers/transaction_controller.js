@@ -36,7 +36,6 @@ module.exports.indexTransaction = (req, res) => {
     var isUserOfCook = dataTran.filter(item=>{
         return item.userId == parseInt(cookId);
     });
-    console.log(isUserOfCook);
     isUserOfCook.forEach(item => {
          usersBorrow.push(
             db
@@ -94,7 +93,7 @@ module.exports.finishTransaction = (req, res) => {
     var errors = [];
     var tranIdparam = req.params.tranId;
     var resultId = db.get('transaction').find({ tranId: tranIdparam }).value();
-    console.log(resultId);
+
     if (!resultId) {
         errors.push("id " + tranIdparam + " Not Found");
     }

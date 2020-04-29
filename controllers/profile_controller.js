@@ -28,14 +28,22 @@ module.exports.postProfile = (req, res, next)=>{
     let age = req.body.age;
     let gioiTinh = req.body.GioiTinh;
     let password = req.body.password;
-    req.body.avatar = req.file.path.split("\\").slice(1).join('/');
-    let avatar = req.body.avatar;
+    if(!req.file){
+    	req.body.avatar = "/uploads/c52cc23d5fccc451b1c3c9d74b53b568"; 	
+    }
+    if(req.file){
+    	req.body.avatar = req.file.path.split("\\").slice(1).join('/');	
+    }
+   	
+	let avatar = req.body.avatar;
+   
     const saltRounds = 10;
 
    cloudinary.v2.uploader.upload("./public/"+avatar)
    .then((result, err)=>{
    		console.log(result);
    })
+
    .then(()=>{
 	   	bcrypt.hash( password, saltRounds).then((hash) =>{
 		      db.get("users")
@@ -44,7 +52,7 @@ module.exports.postProfile = (req, res, next)=>{
 		         age: age,
 		         sex: gioiTinh,
 		         password: hash,
-		         avatarUrl: avatar })
+		         avatarUrl: avatar  })
 		        .write();
 	 		})
    })

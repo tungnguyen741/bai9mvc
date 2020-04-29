@@ -20,7 +20,7 @@ module.exports.postLogin = (req, res, next) =>{
 
 
 	let userLoginTrue = db.get("users").find({ email: email }).value();
-	console.log(userLoginTrue);
+
  	if(! userLoginTrue){
 		res.render('login',{ errors: ["Email. or password wrong !!!"], values: req.body });
 		return;

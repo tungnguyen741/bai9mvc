@@ -1204,47 +1204,47 @@
   "users": [
     {
       "id": 1,
-      "name": "Tung Nguyen1",
-      "age": "21",
+      "name": "Tung Nguyen",
+      "age": "22",
       "sex": "Nam",
-      "password": "$2b$10$IMyEQsgnIYZA1xnTI2UxAOTGg78c6omlscg/3JBR8wpBwfayWzyXG",
+      "password": "$2b$10$W75yEeJqZrweTRKf/aV.9OiMGPcfLZO6./70WJORX.AELsLekjQC2",
       "email": "1654052141tung@ou.edu.vn",
       "isAdmin": true,
       "wrongLoginCount": 0,
-      "avatarUrl": "uploads/763c5f1a41755c30830cd32ce7e07ab5"
+      "avatarUrl": "/uploads/c52cc23d5fccc451b1c3c9d74b53b568"
     },
     {
       "id": 2,
-      "name": "Phuong Pham",
-      "age": "25",
+      "name": "Phương Phạm",
+      "age": "22",
       "sex": "Nữ",
       "email": "phuongpham@codersx.com",
       "isAdmin": false,
-      "password": "$2b$10$gdBx1C/CrhKlZZ3rxQMyU.SIjUohBkKWtfWbGYPHRKSNfjcytf4XC",
+      "password": "$2b$10$dJcIHmEy.L46zYUM64veEuw1Cr/TXpfyJLM9cHYMxTca.ZsYfL4/G",
       "wrongLoginCount": 0,
-      "avatarUrl": "uploads/59e121c43dfe37f7eababebfdac3ff4b"
+      "avatarUrl": "/uploads/c52cc23d5fccc451b1c3c9d74b53b568"
     },
     {
       "id": 3,
-      "name": "Tam Nguyen69",
-      "age": "69",
+      "name": "Tam Nguyen",
+      "age": "22",
       "sex": "Nam",
       "email": "tamnguyen@codersx.com",
       "isAdmin": false,
-      "password": "$2b$10$QGDvTy1IFwnY/T/rX9tBI.sYDv3jteDy1M7n/chfXHDJOKO3cMu7G",
+      "password": "$2b$10$eddErVayVvoIlCfWysSI/uGTQKjfw5oSxv9.Si.tbWAv2gRqOBkpa",
       "wrongLoginCount": 0,
-      "avatarUrl": "uploads/d9653976e6104ec7ff17a9ac54e2c120"
+      "avatarUrl": "uploads/2dba76a12f4a653aa42c39aa420be1c6"
     },
     {
       "id": 4,
       "name": "Hoa Pham",
-      "age": "21",
+      "age": "22",
       "sex": "Nữ",
       "email": "hoapham@codersx.com",
       "isAdmin": false,
-      "password": "$2b$10$lZGpRx8AzG5bGtcutO0iWOnnj9oD7.jMZTu2J4R.ZHcj1j.mtk98C",
+      "password": "$2b$10$eFY4WnmPrVVEyOTx7mW5pO5flaC9hlytgRF7PbZBDUXVwXJCfLT5C",
       "wrongLoginCount": 0,
-      "avatarUrl": "uploads/c2819915ee7506f037e5b9005e885bf6"
+      "avatarUrl": "uploads/65d2cd527cbde72ef87a6dae33c7e727"
     }
   ],
   "transaction": [
