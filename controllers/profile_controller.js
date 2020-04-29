@@ -32,26 +32,25 @@ module.exports.postProfile = (req, res, next)=>{
     let avatar = req.body.avatar;
     const saltRounds = 10;
 
-	cloudinary.v2.uploader.upload("./public/"+avatar)
-	.then( (error, result) => {
-		console.log(result, error)
-	})
-	.then( ()=>{
-		 bcrypt.hash( password, saltRounds).then((hash) =>{
-	      db.get("users")
-	        .find({ id: isUserAd.id })
-	        .assign({ name: name,
-	         age: age,
-	         sex: gioiTinh,
-	         password: hash,
-	         avatarUrl: avatar })
-	        .write();
-	     });
-	})
- 
+   cloudinary.v2.uploader.upload("./public/"+avatar)
+   .then((result, err)=>{
+   		console.log(result);
+   })
+   .then(()=>{
+	   	bcrypt.hash( password, saltRounds).then((hash) =>{
+		      db.get("users")
+		        .find({ id: isUserAd.id })
+		        .assign({ name: name,
+		         age: age,
+		         sex: gioiTinh,
+		         password: hash,
+		         avatarUrl: avatar })
+		        .write();
+	 		})
+   })
+   .then(res.redirect('/'));
 
-   
+	
 
 
-
-}
+}	
