@@ -22,39 +22,36 @@ module.exports.postProfile = (req, res, next)=>{
 		api_key: process.env.APIkeyUp, 
 		api_secret: process.env.APIsecretUp 
 	});
+
  	var isUserAd = db.get("users").find({ id: parseInt(req.signedCookies.userId) }).value();
     let name = req.body.name;
     let age = req.body.age;
     let gioiTinh = req.body.GioiTinh;
     let password = req.body.password;
-    //req.body.avatar = req.file.path.split("\\").slice(1).join('/');
-    //req.body.avatar = req.file.path.split("\\").slice(1,2).join()+ "/" +req.file.originalname;
-    req.body.avatar = req.file.path.split("\\").slice(0,2).join("/")+ "/" +req.file.originalname;
+    req.body.avatar = req.file.path.split("\\").slice(1).join('/');
     let avatar = req.body.avatar;
     const saltRounds = 10;
 
-     bcrypt.hash( password, saltRounds).then((hash) =>{
-      db.get("users")
-        .find({ id: isUserAd.id })
-        .assign({ name: name,
-         age: age,
-         sex: gioiTinh,
-         password: hash,
-         avatarUrl: avatar })
-        .write();
-     });
-  
+	cloudinary.v2.uploader.upload("./public/"+avatar)
+	.then( (error, result) => {
+		console.log(result, error)
+	})
+	.then( ()=>{
+		 bcrypt.hash( password, saltRounds).then((hash) =>{
+	      db.get("users")
+	        .find({ id: isUserAd.id })
+	        .assign({ name: name,
+	         age: age,
+	         sex: gioiTinh,
+	         password: hash,
+	         avatarUrl: avatar })
+	        .write();
+	     });
+	})
+ 
 
-     cloudinary.uploader.upload("./"+avatar)
-    .then((result) => {
-      response.status(200).send({
-        message: "success",
-        result,
-      });
-    }).catch((error) => {
-      response.status(500).send({
-        message: "failure",
-        error,
-      });
-    });
+   
+
+
+
 }

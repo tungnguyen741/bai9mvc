@@ -1226,14 +1226,14 @@
     },
     {
       "id": 3,
-      "name": "Tam Nguyen",
-      "age": "22",
+      "name": "tèo",
+      "age": "1",
       "sex": "Nam",
       "email": "tamnguyen@codersx.com",
       "isAdmin": false,
-      "password": "$2b$10$6cUqNixHApANhJvCp30JLOTeCtF6sg1NsfJ7M41dju0jTkoNtwk4O",
+      "password": "$2b$10$MyC4KWUgqjm6uYyIv4rm9O97GzortUR/zSfvUhv4.I2o3K2dcpwWe",
       "wrongLoginCount": 0,
-      "avatarUrl": "public/uploads/category24.jpg"
+      "avatarUrl": "uploads/c1bfaee30db01cab6a12536b6421d2e4"
     },
     {
       "id": 4,
