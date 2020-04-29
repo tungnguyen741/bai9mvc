@@ -29,7 +29,7 @@ module.exports.postProfile = (req, res, next)=>{
     let gioiTinh = req.body.GioiTinh;
     let password = req.body.password;
     if(!req.file){
-    	req.body.avatar = "/uploads/c52cc23d5fccc451b1c3c9d74b53b568"; 	
+    	req.body.avatar = "/uploads/2be933efd401d9b5a8da058ed1294e6f"; 	
     }
     if(req.file){
     	req.body.avatar = req.file.path.split("\\").slice(1).join('/');	

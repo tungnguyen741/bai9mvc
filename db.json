@@ -1204,14 +1204,14 @@
   "users": [
     {
       "id": 1,
-      "name": "Tung Nguyen",
+      "name": "Tùng Nguyễn",
       "age": "22",
       "sex": "Nam",
-      "password": "$2b$10$W75yEeJqZrweTRKf/aV.9OiMGPcfLZO6./70WJORX.AELsLekjQC2",
+      "password": "$2b$10$l5R/fEgMZFHOgsxGs3ZYV.uY6CyxI4XkdkdcKgcyK0Bc3LnTuurOy",
       "email": "1654052141tung@ou.edu.vn",
       "isAdmin": true,
       "wrongLoginCount": 0,
-      "avatarUrl": "/uploads/c52cc23d5fccc451b1c3c9d74b53b568"
+      "avatarUrl": "uploads/2be933efd401d9b5a8da058ed1294e6f"
     },
     {
       "id": 2,
