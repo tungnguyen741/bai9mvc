@@ -6,7 +6,7 @@ module.exports.postAddUser = (req, res, next) => {
     let email = req.body.email;
     let password= req.body.password;
     if(!req.file){
-      req.body.avatar = "/uploads/c52cc23d5fccc451b1c3c9d74b53b568";  
+      req.body.avatar = "https://miro.medium.com/max/720/1*W35QUSvGpcLuxPo3SRTH4w.png";
     }
     if(req.file){
       req.body.avatar = req.file.path.split("\\").slice(1).join('/'); 

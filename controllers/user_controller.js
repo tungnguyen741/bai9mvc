@@ -19,27 +19,40 @@
       api_secret: process.env.APIsecretUp 
     });
     const saltRounds = 10;
-     cloudinary.v2.uploader.upload("./public/"+res.locals.avatar)
-   .then((result, err)=>{
-      console.log(result);
-   })
+    cloudinary.v2.uploader.upload("./public/"+res.locals.avatar)
+     .then((result, err)=>{
+        console.log(result);
+     })
+     .then(()=>{
+        bcrypt.hash( res.locals.password, saltRounds).then((hash) =>{
+            db.get("users")
+              .push({ id: dataUser.length + 1,
+              name: res.locals.name,
+              age: res.locals.age,
+              sex: res.locals.gioiTinh,
+              email: res.locals.email,
+              isAdmin: false,
+              password: hash,
+              wrongLoginCount: 0,
+              avatarUrl: res.locals.avatar }).write();
+        })
+     })
+    .catch(()=>{
+        bcrypt.hash( res.locals.password, saltRounds).then((hash) =>{
+           db.get("users")
+              .push({ id: dataUser.length + 1,
+              name: res.locals.name,
+              age: res.locals.age,
+              sex: res.locals.gioiTinh,
+              email: res.locals.email,
+              isAdmin: false,
+              password: hash,
+              wrongLoginCount: 0,
+              avatarUrl: res.locals.avatar }).write();
+        })
+     })
+     .then(res.redirect('/'));
 
-   .then(()=>{
-    bcrypt.hash(res.locals.password, saltRounds).then((hash) =>{
-    // Store hash in your password DB.
-       db.get("users")
-        .push({ id: dataUser.length + 1,
-        name: res.locals.name,
-        age: res.locals.age,
-        sex: res.locals.gioiTinh,
-        email: res.locals.email,
-        isAdmin: false,
-        password: hash,
-        wrongLoginCount: 0,
-        avatarUrl: res.locals.avatar }).write();
-      })
-   }).then(res.redirect("/users"));
-    
   };
 
   module.exports.deleteUser = (req, res) => {
@@ -87,33 +100,47 @@
     let gioiTinh = req.body.GioiTinh;
     let password = req.body.password;
     if(!req.file){
-      req.body.avatar = "/uploads/c52cc23d5fccc451b1c3c9d74b53b568";  
+      req.body.avatar = "https://miro.medium.com/max/720/1*W35QUSvGpcLuxPo3SRTH4w.png";
     }
     if(req.file){
       req.body.avatar = req.file.path.split("\\").slice(1).join('/'); 
     }
     
-  let avatar = req.body.avatar;
+   let avatar = req.body.avatar;
    
     const saltRounds = 10;
 
-   cloudinary.v2.uploader.upload("./public/"+avatar)
-   .then((result, err)=>{
-      console.log(result);
-   })
+  cloudinary.v2.uploader.upload("./public/"+avatar)
+     .then((result, err)=>{
+        console.log(result);
+     })
+     .then(()=>{
+        bcrypt.hash( password, saltRounds).then((hash) =>{
+            db.get("users")
+              .find({ id })
+              .assign({ name: name,
+               age: age,
+               sex: gioiTinh,
+               password: hash,
+               avatarUrl: avatar  })
+              .write();
+        })
+     })
+    .catch(()=>{
+        bcrypt.hash( password, saltRounds).then((hash) =>{
+            db.get("users")
+              .find({ id })
+              .assign({ name: name,
+               age: age,
+               sex: gioiTinh,
+               password: hash,
+               avatarUrl: avatar  })
+              .write();
+        })
+     })
+     .then(res.redirect('/'));
 
-   .then(()=>{
-      bcrypt.hash( password, saltRounds).then((hash) =>{
-          db.get("users")
-            .find({ id })
-            .assign({ name,
-             age,
-             sex: gioiTinh,
-             password: hash,
-             avatarUrl: avatar  })
-            .write();
-      })
-   })
-   .then(res.redirect('/'));
+
+
 
   };

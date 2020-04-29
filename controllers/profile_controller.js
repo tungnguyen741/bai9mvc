@@ -29,36 +29,49 @@ module.exports.postProfile = (req, res, next)=>{
     let gioiTinh = req.body.GioiTinh;
     let password = req.body.password;
     if(!req.file){
-    	req.body.avatar = "/uploads/2be933efd401d9b5a8da058ed1294e6f"; 	
+      req.body.avatar = "https://miro.medium.com/max/720/1*W35QUSvGpcLuxPo3SRTH4w.png";
     }
     if(req.file){
     	req.body.avatar = req.file.path.split("\\").slice(1).join('/');	
     }
    	
-	let avatar = req.body.avatar;
+    let avatar = req.body.avatar;
    
     const saltRounds = 10;
-
+    
    cloudinary.v2.uploader.upload("./public/"+avatar)
    .then((result, err)=>{
-   		console.log(result);
+      console.log(result);
    })
-
    .then(()=>{
-	   	bcrypt.hash( password, saltRounds).then((hash) =>{
-		      db.get("users")
-		        .find({ id: isUserAd.id })
-		        .assign({ name: name,
-		         age: age,
-		         sex: gioiTinh,
-		         password: hash,
-		         avatarUrl: avatar  })
-		        .write();
-	 		})
+      bcrypt.hash( password, saltRounds).then((hash) =>{
+          db.get("users")
+            .find({ id: isUserAd.id })
+            .assign({ name: name,
+             age: age,
+             sex: gioiTinh,
+             password: hash,
+             avatarUrl: avatar  })
+            .write();
+      })
    })
-   .then(res.redirect('/'));
+  .catch(()=>{
+      bcrypt.hash( password, saltRounds).then((hash) =>{
+          db.get("users")
+            .find({ id: isUserAd.id })
+            .assign({ name: name,
+             age: age,
+             sex: gioiTinh,
+             password: hash,
+             avatarUrl: avatar  })
+            .write();
+      })
+   })
 
-	
+
+  
+
+ 
 
 
 }	
