@@ -5,7 +5,9 @@ block content
  //-    .alert.alert-danger= error
  //-  a(href="/users/add", class="btn btn-danger") Go back
  div(class="container mt-4")
-  h1 Đăng nhập
+  .d-flex.align-items-center
+    h1.mr-auto Đăng nhập
+    a(href="/users/add") Đăng ký tài khoản mới
   form(class="form-group",action="/login", method="POST")
     label Email
     input(class="form-control w-50",type="text", name="email", value=values?values.email:"")
@@ -19,3 +21,4 @@ block content
     div
      button(class="btn btn-info mt-3") Login
 
+ 

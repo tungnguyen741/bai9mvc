@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const book_controller = require('../controllers/book_controller');
-
 //show books
 router.get("/", book_controller.showBook);
 //show add books

@@ -1227,13 +1227,13 @@
     {
       "id": 3,
       "name": "Tam Nguyen",
-      "age": "1",
+      "age": "23",
       "sex": "Nam",
       "email": "tamnguyen@codersx.com",
       "isAdmin": false,
-      "password": "$2b$10$.yvI5HUn4FGSgS4.wVB15e2YotyzPd7S0qTrkrfyAdWikGi0k7FAW",
+      "password": "$2b$10$C8o7A6c1GvnOJbGljgjWGegRENyrRktY5FmC6rMoBZV8fsVc/zQW.",
       "wrongLoginCount": 0,
-      "avatarUrl": "uploads/bcbf0cf7f3dd771613f975dfab8beac4"
+      "avatarUrl": "uploads/45c7464d9de8a24b2d39e0d7d52ee46a"
     },
     {
       "id": 4,
@@ -1243,6 +1243,28 @@
       "email": "hoapham@codersx.com",
       "isAdmin": false,
       "password": "$2b$10$lnlGKOZNBIfu0w9TyvB1EOHcG0XWpF88LuzNFfFiAjh.yM/itPe22",
+      "wrongLoginCount": 0,
+      "avatarUrl": "https://miro.medium.com/max/720/1*W35QUSvGpcLuxPo3SRTH4w.png"
+    },
+    {
+      "id": 5,
+      "name": "test",
+      "age": "1",
+      "sex": "Nam",
+      "email": "1",
+      "isAdmin": false,
+      "password": "$2b$10$CZAmFpqxmDwuKog85Vd3cO0tglnx15AfqsuRldg1ykvxc6ahQRSOi",
+      "wrongLoginCount": 0,
+      "avatarUrl": "uploads/fbb824c19476af988baa46ff66d5fa9c"
+    },
+    {
+      "id": 6,
+      "name": "test",
+      "age": "1",
+      "sex": "Nam",
+      "email": "1",
+      "isAdmin": false,
+      "password": "$2b$10$NdgXjhkC8nhc0ABNm8p4Z.NXMwAy7vO4U0u9glKOhHwyjEcDWWwqq",
       "wrongLoginCount": 0,
       "avatarUrl": "https://miro.medium.com/max/720/1*W35QUSvGpcLuxPo3SRTH4w.png"
     }
@@ -1319,6 +1341,48 @@
       "userId": 2,
       "bookId": 6,
       "isComplete": true
+    }
+  ],
+  "session": [
+    {
+      "id": "VbcvCE7OCB",
+      "cart": {
+        "sp4": 1,
+        "sp3": 1
+      }
+    },
+    {
+      "id": "K0jPVk0C-K"
+    },
+    {
+      "id": "OZzs2-O67g"
+    },
+    {
+      "id": "-0lz5ZBVgr"
+    },
+    {
+      "id": "jaE1oxIHy",
+      "cart": {
+        "sp3": 1
+      }
+    },
+    {
+      "id": "TyRt-W3kE7",
+      "cart": {
+        "sp1": 1,
+        "sp2": 1,
+        "sp4": 1
+      }
+    },
+    {
+      "id": "-qgjWhNDwn",
+      "cart": {
+        "sp3": 1,
+        "sp1": 1
+      }
+    },
+    {
+      "id": "VFoZRQXax9"
     }
   ]
 }

@@ -13,8 +13,13 @@ p.card-text {
 .card-body {
     height: 400px;
 }
-.button.position-absolute {
-    bottom: 7%
+.btn-view {
+    bottom: 7%;
+    left: 10%;
+}
+.btn-borrow {
+    left: 40%;
+    bottom: 7%;
 }
 button.btn-num {
     color: #111;
@@ -39,4 +44,7 @@ button.btn-num.btn-active {
 .avatar{
     width: 150px;
     height: 150px;
+}
+i.fas.fa-shopping-cart.text-danger {
+    font-size: 40px;
 }

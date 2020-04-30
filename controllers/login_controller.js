@@ -40,6 +40,7 @@ module.exports.postLogin = (req, res, next) =>{
 			  .assign({ wrongLoginCount: 0})
 			  .write();
 			res.cookie("userId", userLoginTrue.id, {signed: true});
+			res.clearCookie("sessionId");
 			res.redirect('/books');
 		}
 		if(!result){

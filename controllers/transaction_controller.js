@@ -9,10 +9,41 @@ module.exports.indexTransaction = (req, res) => {
     var amountBook = [];
     var statusBook = [];
 
+    var temp = [];
+    var sumItem = [];
+    var sessionId = req.signedCookies.sessionId;
+    var sessionOb = db.get('session').find({id: sessionId}).value();
+    if(sessionOb){
+    var cartOb = sessionOb.cart; //cart{sp1:1,sp2:2};
+    var sum = 0;
+    var numI = 0;
+      for(let key in cartOb){
+        numI = cartOb[key];
+        sum += cartOb[key];
+        temp.push(parseInt(key[2])); //sp1,sp2,sp4[1,2,4]
+        sumItem.push(numI);
+      }  
+    }
+    temp.forEach(item=>{
+      booksBorrow.push(db.get('data').find({id: item}).value().title);
+      statusBook.push(db.get('data').find({id: item}).value().isComplete);
+    })
+    var sumItem = 
+     res.render("transaction", {
+            usersBorrow: false,
+            booksBorrow: booksBorrow,
+            amountBook: amountBook,
+            statusBook: statusBook,
+            amountBook: false,
+            sumItem
+        });
+
     var isUserAd = db.get("users").find({
         id: parseInt(req.signedCookies.userId)
     }).value();
-    if (isUserAd.isAdmin) {
+
+    if(isUserAd){
+       if (isUserAd.isAdmin) {
         dataTran.forEach(item => {
             usersBorrow.push(db.get("users").find({
                 id: item.userId
@@ -30,7 +61,9 @@ module.exports.indexTransaction = (req, res) => {
             statusBook: statusBook,
             saveMore: true
         });
-    };
+     };
+    }
+
 
     var cookId = req.signedCookies.userId;
     var isUserOfCook = dataTran.filter(item=>{

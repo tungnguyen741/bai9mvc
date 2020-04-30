@@ -1,26 +1,51 @@
 const db = require("../db");
 var data = db.get("data").value();
-
+var users = db.get("users").value();
 module.exports.showBook = (req, res) => {
   var isUserAd = db.get("users").find({ id: parseInt(req.signedCookies.userId) }).value();
+
   var page = parseInt(req.query.page) || 1; //so trang
   var items = 8; // 8 item
   var start = (page-1)*items;
   var end = page*items;
   var endPage = Math.floor(data.length / items+1);
-  if(isUserAd.isAdmin){
+
+  var sessionId = req.signedCookies.sessionId;
+  var sessionOb = db.get('session').find({id: sessionId}).value();
+  if(sessionOb){
+    var cartOb = sessionOb.cart; //cart{sp1:1,sp2:2};
+    var sum = 0;
+    for(let key in cartOb){
+      sum += cartOb[key];
+    }  
+  }
+  
+ 
+
+  if(isUserAd){
+    if(isUserAd.isAdmin){
     res.render("books", { books: data.slice(start, end),
       viewAction: true,
       user: isUserAd,
       page: page,
       endPage: endPage,
+      sumCart: sum  
       });
+    }
+    res.render("books",{ books: data.slice(start, end),
+      viewAction: false,
+      user: isUserAd,
+      page,
+      endPage,
+      sumCart: sum  
+     });
   }
   res.render("books",{ books: data.slice(start, end),
       viewAction: false,
-      user: isUserAd,
-      page: page,
+      user: data,
+      page,
       endPage,
+      sumCart: sum  
      });
   
 };

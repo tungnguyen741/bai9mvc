@@ -1,16 +1,27 @@
 extends ../layout/common.pug
 block content
-  nav(class="navbar navbar-light bg-light justify-content-end")
-   div(class="mr-auto") 
-     h1 My books
-     if(viewAction)
-      .d-flex.justify-content-start.align-items-center.mt-3
+  nav.navbar.navbar-expand-lg.navbar-light.bg-light
+   div 
+    if(viewAction)
+     .d-flex.justify-content-start.align-items-center 
+      a(href="/books") 
        img(src= user.avatarUrl)
-       h5= "Hi admin "+ user.name
-     else
-      .d-flex.justify-content-start.align-items-center.mt-3
-        img(src= user.avatarUrl)
-        h5= "Hi " + user.name
+      h5.m-0.mr-5= "Hi admin " + user.name
+    else
+     .d-flex.justify-content-start.align-items-center 
+       a(href="/books")
+        img(src= user.avatarUrl?user.avatarUrl:"https://miro.medium.com/max/720/1*W35QUSvGpcLuxPo3SRTH4w.png")
+       if(user.name)
+        h5.m-0.mr-5= "Hi " + user.name
+       else
+        h5.m-0.mr-5= "Hi Guess"
+   #navbarSupportedContent.collapse.navbar-collapse
+    ul.navbar-nav.mr-auto 
+     li.nav-item
+      span.nav-link
+       i(class="fas fa-shopping-cart text-danger")  
+        span= sumCart
+
    if(viewAction)
     a(href="/books/add", class="mr-1 btn btn-danger") Add new book
     a(href="/users", class="mr-1 btn btn-primary") View Users
@@ -20,7 +31,7 @@ block content
    a(href="/logout", class="btn btn-info") Đăng Xuất
 
 
- 
+  
   .container.mt-5.pt-5
     .row
       each book, index in books
@@ -30,14 +41,16 @@ block content
           div(class="card-body position-relative")  
             h5(class="card-title")= book.title
             p(class="card-text")= book.description
-            .button.position-absolute
-              a(class="btn btn-primary btn-view", href="/books/detail/"+ book.id) View
+            .button.position-absolute.btn-view
+              a(class="btn btn-primary", href="/books/detail/"+ book.id) View
+            .button.position-absolute.btn-borrow
+              a(class="btn btn-danger", href="/cart/add/"+ book.id) Add to cart
               if(viewAction)
                a(class="btn btn-danger ml-1 btn-delete", href="/books/delete/"+ book.id) Delete
                a(class="btn btn-warning ml-1 btn-update", href="/books/update/"+ book.id) Update
 
     .pagination.mb-5.mt-5.d-flex.justify-content-center
-      form(action="/", method="GET")
+      form(action="/books", method="GET")
        button(name="page",class="btn-num", value= 1, hidden="true"?page-1==0:'false' ) <<
        button(name="page",class="btn-num", value= page-1, hidden="true"?page-1==0:'false' ) <
        button(name="page",class="btn-num", value= page-1, hidden="true"?page-1==0:'false')= page-1

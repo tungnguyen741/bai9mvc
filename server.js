@@ -14,19 +14,25 @@ const bookRoute = require("./route/book_route");
 const transactionRoute = require('./route/transaction_route');
 const loginRoute = require("./route/login_route");
 const profileRoute = require("./route/profile_route");
+const cartRoute = require("./route/cart_Route");
+const session = require("./middleware/session_middleware");
 //
 const auth_middleware = require("./middleware/auth_middleware");
 app.set("view engine", "pug");
 app.set("views", "./views");
-app.use(express.static('public'))
+app.use(express.static('public'));
+
+app.use(session);
 app.use("/login", loginRoute);
-app.use("/users", auth_middleware.checkCookie, userRoute);
-app.use("/", auth_middleware.checkCookie, bookRoute);
-app.use("/books", auth_middleware.checkCookie, bookRoute);
-app.use("/transaction", auth_middleware.checkCookie, transactionRoute);
+app.use("/users", userRoute);
+app.use("/", cartRoute, bookRoute);
+app.use("/books", cartRoute, bookRoute);
+app.use("/transaction", cartRoute, transactionRoute);
 app.use("/profile", auth_middleware.checkCookie, profileRoute);
+app.use("/cart", cartRoute);
 app.get("/logout", (req, res) => {
     res.clearCookie("userId");
+    res.clearCookie("sessionId");
     res.redirect("/login");
 });
 app.listen(3000, () => {
