@@ -4,9 +4,11 @@ block content
   h1 Info User
   
   ul
-    each x in dataDetail
-     
-     img.avatar(src= "../../"+x.avatarUrl)
+    each x in dataFinded
+     if(dataHaveAvatar)
+      img.avatar(src= x.avatarUrl)
+     else
+      img.avatar(src= "../../"+x.avatarUrl)
      li Tên:
       span(style="font-weight: 600; color: #333; margin-left: 5px")= x.name
      li Tuổi:

@@ -37,10 +37,10 @@ block content
       each book, index in books
         .col-3.item
          .card.mb-3
-          img(src= book.image, class="card-img-top")
+          img(src= book._doc.image, class="card-img-top")
           div(class="card-body position-relative")  
-            h5(class="card-title")= book.title
-            p(class="card-text")= book.description
+            h5(class="card-title")= book._doc.title
+            p(class="card-text")= book._doc.description
             .button.position-absolute.btn-view
               a(class="btn btn-primary", href="/books/detail/"+ book.id) View
             .button.position-absolute.btn-borrow
@@ -58,5 +58,5 @@ block content
        button(name="page",class="btn-num", value= page+1, hidden="true"?page+1>=endPage:'false')= page+1
        button(name="page",class="btn-num", value= page+2, hidden="true"?page+2>=endPage:'false')= page+2
        button(name="page",class="btn-num", value= page+1, hidden="true"?page+1>=endPage:'false' ) >
-       button(name="page",class="btn-num", value= endPage-1, hidden="true"?page+1>=endPage:'false') >>
+       button(name="page",class="btn-num", value= endPage, hidden="true"?page+1>=endPage:'false') >>
        

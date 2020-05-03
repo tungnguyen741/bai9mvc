@@ -4,8 +4,8 @@ block content
     ul
      each x in dataDetail
       li Tên sách:
-       span(style="font-weight: 600; color: #333; margin-left: 5px") #{x.title}
+       span(style="font-weight: 600; color: #333; margin-left: 5px") #{x._doc.title}
       li(class=" text-justify") Mô tả:
-       span(style="color: #333; margin-left: 5px") #{x.description}
+       span(style="color: #333; margin-left: 5px") #{x._doc.description}
 
       a(href="/books") Go back home

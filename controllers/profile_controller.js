@@ -1,15 +1,10 @@
-const db = require("../db");
-var data = db.get("data").value();
 var bcrypt = require('bcrypt')
-var dataUser = db.get("users").value();
-
-
+var User = require('../Models/user.model');
 module.exports.indexProfile = (req, res, next) =>{
-  var isUserAd = db.get("users").find({ id: parseInt(req.signedCookies.userId) }).value();
-  let dataFinded = db
-      .get("users")
-      .find({ id: isUserAd.id })
-      .value();
+  let isUserAd = User.findOne({_id: req.signedCookies.userId });
+  let dataFinded = User.findOne({_id: isUserAd.id });
+  console.log(dataFinded);
+
     var dataArr = [];
     dataArr.push(dataFinded);
     res.render("profile", { dataDetail: dataArr });

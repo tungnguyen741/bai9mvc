@@ -5,15 +5,18 @@ block content
 
  
   h4
-    each x in dataDetail 
+    each x in dataFinded 
       .mt-2.mb-2
-       img.avatar(src= "../../"+x.avatarUrl) 
+       if(dataHaveAvatar)
+        img.avatar(src= x.avatarUrl)
+       else 
+        img.avatar(src= "../../"+x.avatarUrl) 
       p="Tên:  "+ x.name
       p="Tuổi:  "+ x.age
       p="Giới Tính:  "+ x.sex
   hr
   h2.text-danger Update User
-  each x in dataDetail  
+  each x in dataFinded  
    form(class="form-group",action="/users/update/" + x.id, method="POST", enctype="multipart/form-data")
           label Tên 
           input(class="form-control w-50",type="text", name="name")

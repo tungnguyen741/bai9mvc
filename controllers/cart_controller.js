@@ -1,24 +1,26 @@
-module.exports.addToCart = (req, res, next)=>{
-	var bookId = req.params.bookId;
-	var sessionId = req.signedCookies.sessionId;
-
-	if(! sessionId){
-		res.redirect('/books');
-		return;
-	}
-	var objCart = 'cart.sp'+ bookId;
-	//cart={sp+bookId: y}
-	var count = db.get('session')
-								.find({id: sessionId})
-								.get(objCart, 0)
-								.value();
-
-	db.get('session')
-		.find({ id: sessionId })
-		.set(objCart, ++count)
-		.write();
-
-	 // hien so lg gio hang
+var Session = require('../Models/session.model');
+module.exports.addToCart = async function(req, res, next) {
+    var bookId = req.params.bookId;
+    var sessionId = req.signedCookies.sessionId;
+    if (!sessionId) {
+        res.redirect('/books');
+        return;
+    }
  
-	res.redirect('/books');
+    // await Session.updateOne({ sskey: sessionId },
+    //      { 'cart': {[bookId]:0} }
+    // );
+
+    var count = await Session.findOne({sskey: sessionId});
+
+    // await Session.updateOne({ sskey: sessionId },
+    //      { 'cart': {[bookId]: ++count.cart[bookId]} }
+    // );
+    await Session.findOneAndUpdate({ sskey: sessionId }, { $inc: { ['cart.' + bookId]: 1 } });
+    
+    console.log('countcart: ',  count.cart[bookId]);    
+    console.log('count: ', count);
+
+
+    res.redirect('/books');
 }

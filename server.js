@@ -1,27 +1,40 @@
 require('dotenv').config()
 const express = require("express");
 const app = express();
+
 const bodyParser = require("body-parser");
-var cookieParser = require('cookie-parser');
-app.use(bodyParser.json()); // for parsing application/json
+const cookieParser = require('cookie-parser');
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
-})); // for parsing application/x-www-form-urlencoded
+}));
 app.use(cookieParser(process.env.sessionKey));
-const db = require("./db");
+
+// MONGO DB
+const mongoose = require('mongoose');
+mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true});
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+  console.log('CONNECTED Successfully')
+});
+
+// ==== ROUTE ====
 const userRoute = require("./route/user_route");
 const bookRoute = require("./route/book_route");
 const transactionRoute = require('./route/transaction_route');
 const loginRoute = require("./route/login_route");
 const profileRoute = require("./route/profile_route");
-const cartRoute = require("./route/cart_Route");
+const cartRoute = require("./route/cart_route");
 const session = require("./middleware/session_middleware");
-//
 const auth_middleware = require("./middleware/auth_middleware");
+// ==== VIEW ====
 app.set("view engine", "pug");
 app.set("views", "./views");
 app.use(express.static('public'));
 
+//==== USE ROUTE ====
 app.use(session);
 app.use("/login", loginRoute);
 app.use("/users", userRoute);
