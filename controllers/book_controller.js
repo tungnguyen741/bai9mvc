@@ -4,7 +4,7 @@ var User = require('../Models/user.model');
 var Session = require('../Models/session.model');
 module.exports.showBook = async function (req, res) {
   var dataBook = await Book.find();
-
+  console.log( req.signedCookies.sessionId);
   var page = parseInt(req.query.page) || 1; //so trang
   var items = 8; // 8 item
   var start = (page-1)*items;
@@ -13,34 +13,34 @@ module.exports.showBook = async function (req, res) {
 
  
  try{
-   var sessionOb = await Session.findOne({sskey: req.signedCookies.sessionId});
-   var isUserAd = await User.findOne({_id: req.signedCookies.userId});
+   var sessionOb = await Session.findOne({_id: req.signedCookies.sessionId});
+   // var isUserAd = await User.findOne({_id: req.signedCookies.userId});
  }
  catch{}
-  if(sessionOb){
-    var cartOb = sessionOb.cart; //cart{sp1:1,sp2:2};
-    var sum = 0;
-    for(let key in cartOb){
-      sum += cartOb[key];
-    }  
-  }
+  // if(sessionOb){
+  //   var cartOb = sessionOb.cart; //cart{sp1:1,sp2:2};
+  //   var sum = 0;
+  //   for(let key in cartOb){
+  //     sum += cartOb[key];
+  //   }  
+  // }
 
-  if(isUserAd){
-    if(isUserAd.isAdmin){
+  if(res.locals.user){
+    if(res.locals.user.isAdmin){
     res.render("books", { books: dataBook.slice(start, end),
       viewAction: true,
-      user: isUserAd,
+      user: res.locals.user,
       page: page,
       endPage: endPage,
-      sumCart: sum  
+      sumCart: res.locals.count 
       });
     }
     res.render("books",{ books: dataBook.slice(start, end),
       viewAction: false,
-      user: isUserAd,
+      user: res.locals.user,
       page,
       endPage,
-      sumCart: sum  
+      sumCart: res.locals.count  
      });
   }
 
@@ -50,7 +50,7 @@ module.exports.showBook = async function (req, res) {
       user: dataBook,
       page,
       endPage,
-      sumCart: sum  
+      sumCart: res.locals.count  
      });
   
  

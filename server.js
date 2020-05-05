@@ -35,17 +35,20 @@ app.set("views", "./views");
 app.use(express.static('public'));
 
 //==== USE ROUTE ====
-app.use(session);
+//app.use(session);
 app.use("/login", loginRoute);
-app.use("/users", userRoute);
-app.use("/", cartRoute, bookRoute);
-app.use("/books", cartRoute, bookRoute);
-app.use("/transaction", cartRoute, transactionRoute);
-app.use("/profile", auth_middleware.checkCookie, profileRoute);
-app.use("/cart", cartRoute);
-app.get("/logout", (req, res) => {
+app.use("/users",session, userRoute);
+app.use("/",session, cartRoute, bookRoute);
+app.use("/books",session, cartRoute, bookRoute);
+app.use("/transaction",session, cartRoute, transactionRoute);
+app.use("/profile",session, auth_middleware.checkCookie, profileRoute);
+app.use("/cart",session, cartRoute);
+
+var Session = require('./Models/session.model');
+app.get("/logout", async function (req, res) {
     res.clearCookie("userId");
     res.clearCookie("sessionId");
+    await Session.deleteOne({sskey: req.signedCookies.sessionId});
     res.redirect("/login");
 });
 app.listen(3000, () => {

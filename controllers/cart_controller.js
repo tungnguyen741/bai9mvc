@@ -6,21 +6,20 @@ module.exports.addToCart = async function(req, res, next) {
         res.redirect('/books');
         return;
     }
- 
-    // await Session.updateOne({ sskey: sessionId },
-    //      { 'cart': {[bookId]:0} }
-    // );
+    let session = await Session.findById(sessionId);
 
-    var count = await Session.findOne({sskey: sessionId});
+      let book = session.cart.find(
+        cartItem => cartItem.bookId.toString() === bookId
+      );
 
-    // await Session.updateOne({ sskey: sessionId },
-    //      { 'cart': {[bookId]: ++count.cart[bookId]} }
-    // );
-    await Session.findOneAndUpdate({ sskey: sessionId }, { $inc: { ['cart.' + bookId]: 1 } });
-    
-    console.log('countcart: ',  count.cart[bookId]);    
-    console.log('count: ', count);
-
+      if (book) {
+        book.quantity += 1;
+        session.save();
+      } else {
+        await Session.findByIdAndUpdate(sessionId, {
+          $push: { cart: { bookId, quantity: 1 } }
+        });
+      }
 
     res.redirect('/books');
 }

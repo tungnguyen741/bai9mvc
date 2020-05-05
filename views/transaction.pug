@@ -11,17 +11,19 @@ block content
        div(style="font-weight: 700") NGƯỜI MƯỢN
        each user in usersBorrow
          li(style="border: 1px solid black; padding:10px 30px;")
-          span= user      
+          span= user.name      
     ul(style="display:inline-block; list-style: none; padding-left: 0") 
      div(style="font-weight: 700") SÁCH MƯỢN
-     each book in booksBorrow
+     each book in bookNameBorrow
        li(style="border: 1px solid black; padding:10px 30px ;")
-        span= book 
+        span= book.title 
     ul(style="display:inline-block; list-style: none; padding-left: 0") 
-     div(style="font-weight: 700") SỐ LƯỢNG
-     each numItem in sumItem
-       li(style="border: 1px solid black; padding:10px 30px ;")
-        span= numItem 
+    if(sumItem)
+     ul(style="display:inline-block; list-style: none; padding-left: 0") 
+      div(style="font-weight: 700") SỐ LƯỢNG
+       each numItem in sumItem
+        li(style="border: 1px solid black; padding:10px 30px ;")
+         span= numItem 
     if(amountBook)
       ul(style="display:inline-block; list-style: none; padding-left: 0") 
        div(style="font-weight: 700") FINISH
@@ -34,7 +36,7 @@ block content
      div(style="font-weight: 700") TRẠNG THÁI
       each status in statusBook
        li(style="border: 1px solid black; padding: 10px 30px; ")
-         if(status)
+         if(!status)
           span Đã trả👌
          else
           span Chưa trả 👀

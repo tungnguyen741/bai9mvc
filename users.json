@@ -1,0 +1,73 @@
+[{
+  "_id": {
+    "$oid": "5eaed4339c51d93114a7864a"
+  },
+  "name": "Tùng Nguyễn",
+  "age": "22",
+  "sex": "Nam",
+  "password": "$2b$10$l5R/fEgMZFHOgsxGs3ZYV.uY6CyxI4XkdkdcKgcyK0Bc3LnTuurOy",
+  "email": "1654052141tung@ou.edu.vn",
+  "isAdmin": true,
+  "wrongLoginCount": 0,
+  "avatarUrl": "uploads/2be933efd401d9b5a8da058ed1294e6f"
+},{
+  "_id": {
+    "$oid": "5eaed4339c51d93114a7864b"
+  },
+  "name": "Phương Phạm",
+  "age": "22",
+  "sex": "Nữ",
+  "email": "phuongpham@codersx.com",
+  "isAdmin": false,
+  "password": "$2b$10$FbrKCWST6fWFV0HFxvpdEOXIUKxxua6xh640QgtTl7dV2HH4aDQES",
+  "wrongLoginCount": 0,
+  "avatarUrl": "https://miro.medium.com/max/720/1*W35QUSvGpcLuxPo3SRTH4w.png"
+},{
+  "_id": {
+    "$oid": "5eaed4339c51d93114a7864c"
+  },
+  "name": "Tam Nguyen",
+  "age": "23",
+  "sex": "Nam",
+  "email": "tamnguyen@codersx.com",
+  "isAdmin": false,
+  "password": "$2b$10$C8o7A6c1GvnOJbGljgjWGegRENyrRktY5FmC6rMoBZV8fsVc/zQW.",
+  "wrongLoginCount": 0,
+  "avatarUrl": "uploads/45c7464d9de8a24b2d39e0d7d52ee46a"
+},{
+  "_id": {
+    "$oid": "5eaed4339c51d93114a7864d"
+  },
+  "name": "Hoa Pham",
+  "age": "21",
+  "sex": "Nữ",
+  "email": "hoapham@codersx.com",
+  "isAdmin": false,
+  "password": "$2b$10$lnlGKOZNBIfu0w9TyvB1EOHcG0XWpF88LuzNFfFiAjh.yM/itPe22",
+  "wrongLoginCount": 0,
+  "avatarUrl": "https://miro.medium.com/max/720/1*W35QUSvGpcLuxPo3SRTH4w.png"
+},{
+  "_id": {
+    "$oid": "5eaed4339c51d93114a7864e"
+  },
+  "name": "test",
+  "age": "1",
+  "sex": "Nam",
+  "email": "1",
+  "isAdmin": false,
+  "password": "$2b$10$CZAmFpqxmDwuKog85Vd3cO0tglnx15AfqsuRldg1ykvxc6ahQRSOi",
+  "wrongLoginCount": 0,
+  "avatarUrl": "uploads/fbb824c19476af988baa46ff66d5fa9c"
+},{
+  "_id": {
+    "$oid": "5eaed4339c51d93114a7864f"
+  },
+  "name": "test",
+  "age": "1",
+  "sex": "Nam",
+  "email": "1",
+  "isAdmin": false,
+  "password": "$2b$10$NdgXjhkC8nhc0ABNm8p4Z.NXMwAy7vO4U0u9glKOhHwyjEcDWWwqq",
+  "wrongLoginCount": 0,
+  "avatarUrl": "https://miro.medium.com/max/720/1*W35QUSvGpcLuxPo3SRTH4w.png"
+}]

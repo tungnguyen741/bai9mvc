@@ -1,144 +1,128 @@
-const db = require("../db");
-var dataTran = db.get("transaction").value();
-var dataUser = db.get("users").value();
-var dataBook = db.get("data").value();
-
-module.exports.indexTransaction = (req, res) => {
-    var usersBorrow = [];
-    var booksBorrow = [];
-    var amountBook = [];
-    var statusBook = [];
-
-    var temp = [];
-    var sumItem = [];
-    var sessionId = req.signedCookies.sessionId;
-    var sessionOb = db.get('session').find({id: sessionId}).value();
-    if(sessionOb){
-    var cartOb = sessionOb.cart; //cart{sp1:1,sp2:2};
-    var sum = 0;
-    var numI = 0;
-      for(let key in cartOb){
-        numI = cartOb[key];
-        sum += cartOb[key];
-        temp.push(parseInt(key[2])); //sp1,sp2,sp4[1,2,4]
-        sumItem.push(numI);
-      }  
-    }
-    temp.forEach(item=>{
-      booksBorrow.push(db.get('data').find({id: item}).value().title);
-      statusBook.push(db.get('data').find({id: item}).value().isComplete);
-    })
-    var sumItem = 
-     res.render("transaction", {
-            usersBorrow: false,
-            booksBorrow: booksBorrow,
-            amountBook: amountBook,
-            statusBook: statusBook,
-            amountBook: false,
-            sumItem
+var User = require('../Models/user.model');
+var Book = require('../Models/data.model');
+var Transaction = require('../Models/transaction.model');
+var Session = require('../Models/session.model');
+module.exports.indexTransaction = async function(req, res) {
+    let books = await Book.find();
+    let users = await User.find();
+    let transactions = await Transaction.find();
+    let session = await Session.findOne({
+        _id: req.signedCookies.sessionId
+    });
+    let bookName = [];
+    let amountBook = [];
+    let statusBook = [];
+    let usersBorrow = [];
+    let ssArrFind = session.cart;
+    //GUESS
+    if (!res.locals.user) {
+        console.log('GUESSSSSSSSSSSSSSSSSSSSs');
+        ssArrFind.forEach(item => {
+            var bookNameFind = books.filter(item2 => {
+                return item2.id == item.bookId;
+            });
+            bookName.push(bookNameFind);
+            amountBook.push(item.quantity);
         });
-
-    var isUserAd = db.get("users").find({
-        id: parseInt(req.signedCookies.userId)
-    }).value();
-
-    if(isUserAd){
-       if (isUserAd.isAdmin) {
-        dataTran.forEach(item => {
-            usersBorrow.push(db.get("users").find({
-                id: item.userId
-            }).value().name);
-            booksBorrow.push(db.get("data").find({
-                id: item.bookId
-            }).value().title);
-            amountBook.push(item.tranId);
+        res.render('transaction', {
+            bookNameBorrow: bookName.flat(),
+            sumItem: amountBook,
+            statusBook: ssArrFind
+        });
+    }
+    //ADMIN
+    if (res.locals.user.isAdmin) {
+        console.log('ADMINNNNNNNNNNNNNNN');
+        transactions.forEach(item => {
+            bookName.push(item.bookId);
             statusBook.push(item.isComplete);
+            usersBorrow.push(item.userId);
         });
-        res.render("transaction", {
-            usersBorrow: usersBorrow,
-            booksBorrow: booksBorrow,
-            amountBook: amountBook,
-            statusBook: statusBook,
-            saveMore: true
+        var temp = [];
+        bookName.forEach(item => {
+            var bookNameFind = books.filter(item2 => {
+                return item2.id == item;
+            });
+            temp.push(bookNameFind);
         });
-     };
+        var temp2 = [];
+        usersBorrow.forEach(item => {
+            var usersBorrow1 = users.filter(item2 => {
+                return item2.id == item;
+            });
+            temp2.push(usersBorrow1);
+        });
+        res.render('transaction', {
+            usersBorrow: temp2.flat(),
+            statusBook,
+            bookNameBorrow: temp.flat(),
+            sumItem: false
+        });
+        return;
     }
-
-
-    var cookId = req.signedCookies.userId;
-    var isUserOfCook = dataTran.filter(item=>{
-        return item.userId == parseInt(cookId);
-    });
-    isUserOfCook.forEach(item => {
-         usersBorrow.push(
-            db
-            .get("users")
-            .find({ id: item.userId })
-            .value().name
-        );
-        booksBorrow.push(
-            db
-            .get("data")
-            .find({ id: item.bookId })
-            .value().title
-        );
-        amountBook.push(item.tranId);
-        statusBook.push(item.isComplete);
-    });
-
-    res.render("transaction", {
-        usersBorrow: usersBorrow,
-        booksBorrow: booksBorrow,
-        amountBook: false,
-        statusBook: statusBook,
-        saveMore: false
-    })
+    //USER
+    if (res.locals.user) {
+        usersBorrow = users.filter(item => {
+            return res.locals.user.id == item.id;
+        });
+        ssArrFind.forEach(item => {
+            var bookNameFind = books.filter(item2 => {
+                return item2.id == item.bookId;
+            });
+            bookName.push(bookNameFind);
+            amountBook.push(item.quantity);
+        });
+        res.render('transaction', {
+            usersBorrow,
+            bookNameBorrow: bookName.flat(),
+            sumItem: amountBook,
+            statusBook: ssArrFind
+        });
+    }
 };
-
 module.exports.createTransaction = (req, res) => {
-    res.render("transaction_create", { dataUser: dataUser, dataBook: dataBook });
+    res.render("transaction_create", {
+        dataUser: dataUser,
+        dataBook: dataBook
+    });
 };
-
 module.exports.postCreateTransaction = (req, res) => {
     var bookRecieve = req.body.bookRecieve;
     var userRecieve = req.body.userRecieve;
-    var idBookRecieve = db
-        .get("data")
-        .find({ title: bookRecieve })
-        .value().id;
-    var idUserRecieve = db
-        .get("users")
-        .find({ name: userRecieve })
-        .value().id;
-    db.get("transaction")
-        .push({
-            tranId: "tr" +  dataTran.length,
-            userId: idUserRecieve,
-            bookId: idBookRecieve,
-            isComplete: false
-        })
-        .write();
+    var idBookRecieve = db.get("data").find({
+        title: bookRecieve
+    }).value().id;
+    var idUserRecieve = db.get("users").find({
+        name: userRecieve
+    }).value().id;
+    db.get("transaction").push({
+        tranId: "tr" + dataTran.length,
+        userId: idUserRecieve,
+        bookId: idBookRecieve,
+        isComplete: false
+    }).write();
     res.redirect("/transaction");
 };
-
 module.exports.finishTransaction = (req, res) => {
     // /transaction/"+ num +"/complete
     var errors = [];
     var tranIdparam = req.params.tranId;
-    var resultId = db.get('transaction').find({ tranId: tranIdparam }).value();
-
+    var resultId = db.get('transaction').find({
+        tranId: tranIdparam
+    }).value();
     if (!resultId) {
         errors.push("id " + tranIdparam + " Not Found");
     }
-
     if (errors.length) {
-        res.render('transaction', { errors: errors });
+        res.render('transaction', {
+            errors: errors
+        });
         return;
     }
-
-    db.get('transaction')
-        .find({ tranId: tranIdparam })
-        .assign({ isComplete: true })
-        .write();
+    db.get('transaction').find({
+        tranId: tranIdparam
+    }).assign({
+        isComplete: true
+    }).write();
     res.redirect('/transaction');
 };
